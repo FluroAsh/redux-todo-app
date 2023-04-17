@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { TodoProps, TodoStatus } from '../types'
+import { COMPLETED, TBC } from '../../constants'
 
 export interface ITodoState {
   todos: TodoProps[] | []
@@ -49,13 +50,15 @@ const todoSlice = createSlice({
     ) => {
       try {
         const toggledStatus: TodoStatus =
-          action.payload.status === 'TBC' ? 'Completed' : 'TBC'
+          action.payload.status === TBC ? COMPLETED : TBC
         const todoIndex = state.todos.findIndex(
           (todo) => todo.id === action.payload.id
         )
 
         if (todoIndex === -1) {
-          throw Error('ERROR: No todo that matches that id found.')
+          throw Error(
+            `ERROR: No todo that matches id ${action.payload.id} found.`
+          )
         }
 
         const updatedTodo = {
@@ -78,10 +81,28 @@ const todoSlice = createSlice({
       // then update
       // else return
     },
-    deleteTodo: (state, action) => {
-      // find the todo by id
-      // remove from local storage
-      // remove from state
+    deleteTodo: (state, action: PayloadAction<Pick<TodoProps, 'id'>>) => {
+      try {
+        const todoIndex = state.todos.findIndex(
+          (todo) => todo.id === action.payload.id
+        )
+
+        if (todoIndex === -1)
+          throw Error(
+            `ERROR: No todo that matches id ${action.payload.id} found`
+          )
+
+        const updatedTodos = state.todos.filter(
+          (todo) => todo.id !== action.payload.id
+        )
+
+        state.todos = updatedTodos
+        localStorage.setItem('todos', JSON.stringify(updatedTodos))
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(error.message)
+        }
+      }
     },
     filterTodos: (state, action) => {
       // get todos by status (filter) -> todo.status === (status)

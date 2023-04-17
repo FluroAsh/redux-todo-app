@@ -1,9 +1,11 @@
 import { css } from '@emotion/react'
-import { useState } from 'react'
-import type { FormEvent, ChangeEvent } from 'react'
+import { useRef, useState } from 'react'
 import { UUID } from 'uuidjs'
 import { useDispatch } from 'react-redux'
+import type { FormEvent, ChangeEvent } from 'react'
+
 import { createTodo } from '../lib/slices/todoSlice'
+import { TBC } from '../constants'
 
 const TodoForm = css`
   display: flex;
@@ -26,6 +28,7 @@ const TodoForm = css`
 
 export const TodoField = () => {
   const [todoValue, setTodoValue] = useState<string>('')
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const dispatch = useDispatch()
 
@@ -33,8 +36,9 @@ export const TodoField = () => {
     event.preventDefault()
     if (todoValue !== '') {
       const id = UUID.generate()
-      dispatch(createTodo({ id, todo: todoValue, status: 'TBC' }))
+      dispatch(createTodo({ id, todo: todoValue, status: TBC }))
       setTodoValue('')
+      inputRef.current?.focus()
     }
   }
 
@@ -50,6 +54,7 @@ export const TodoField = () => {
         onChange={handleChange}
         autoComplete="false"
         type="text"
+        ref={inputRef}
       />
     </form>
   )

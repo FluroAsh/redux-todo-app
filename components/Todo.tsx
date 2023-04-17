@@ -1,17 +1,21 @@
 import { useState } from 'react'
 import { css } from '@emotion/react'
-import { TodoStatus } from './Todos'
-import { TodoProps } from '../lib/types'
 import { useDispatch } from 'react-redux'
-import { toggleTodo, updateTodo } from '../lib/slices/todoSlice'
+
+import type { TodoProps, TodoStatus } from '../lib/types'
+import { AiOutlineClose } from 'react-icons/ai'
+import { deleteTodo, toggleTodo } from '../lib/slices/todoSlice'
+import { COMPLETED } from '../constants'
 
 const TodoContainer = (status: TodoStatus) => css`
   color: black;
   display: flex;
-  background: linear-gradient(45deg, hsl(0, 0%, 100%), hsl(0, 0%, 50%));
-  opacity: ${status === 'Completed' ? 0.5 : 1};
+  // TODO: Add a stacked background-image ontop of this one...
+  background: linear-gradient(45deg, hsl(0, 0%, 90%), hsl(0, 0%, 50%));
+  opacity: ${status === COMPLETED ? 0.5 : 1};
   width: 600px;
   padding-left: 12px;
+  overflow-y: hidden;
 
   > div,
   label {
@@ -31,10 +35,29 @@ const TodoContainer = (status: TodoStatus) => css`
 
 const DeleteTodo = css`
   all: unset;
-  padding: 12px;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: linear-gradient(
+    45deg,
+    hsla(0, 0%, 35%, 0.7),
+    hsla(0, 0%, 35%, 0.3)
+  );
+  /* transition: 0.5s; */
 
   &:hover {
+    background: linear-gradient(
+      45deg,
+      hsla(0, 0%, 70%, 0.7),
+      hsla(0, 0%, 70%, 0.3)
+    );
+    box-shadow: 0 -5px 8px hsla(0, 0%, 30%, 0.5);
+
     cursor: pointer;
+
+    > svg {
+      fill: hsl(0, 0%, 100%);
+    }
   }
 `
 
@@ -52,15 +75,8 @@ export const Todo: React.FC<TodoProps> = ({ id, todo, status }) => {
   const dispatch = useDispatch()
 
   const handleCheckboxChange = () => {
-    // dispatch update to todo item in state
-    // update in local storage
     dispatch(toggleTodo({ id, status }))
     setChecked(!checked)
-  }
-
-  const handleRemove = () => {
-    // dispatch update to todo item in state
-    // update in local storage
   }
 
   return (
@@ -76,8 +92,12 @@ export const Todo: React.FC<TodoProps> = ({ id, todo, status }) => {
         <div>{todo}</div>
         <div>{status}</div>
       </label>
-      <button css={DeleteTodo} onClick={handleRemove} type="button">
-        X
+      <button
+        css={DeleteTodo}
+        onClick={() => dispatch(deleteTodo({ id }))}
+        type="button"
+      >
+        <AiOutlineClose size={20} fill="hsl(0, 0%, 80%)" />
       </button>
     </div>
   )

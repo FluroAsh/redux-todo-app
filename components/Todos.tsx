@@ -30,8 +30,6 @@ const addTodos = css`
   text-align: center;
 `
 
-export type TodoStatus = 'Completed' | 'TBC'
-
 export const Todos = () => {
   const { todos } = useSelector((state: RootState) => state.todoSlice)
 
