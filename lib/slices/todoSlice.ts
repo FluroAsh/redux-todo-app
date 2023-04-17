@@ -15,37 +15,37 @@ const todoSlice = createSlice({
   initialState,
   reducers: {
     initializeTodos: (state) => {
-      try {
-        const data = localStorage.getItem('todos')
-        if (data) {
-          const todos = JSON.parse(data)
-          state.todos = todos
-        }
-      } catch (error) {
-        console.error(`ERROR: Couldn't parse data from localStorage: ${error}`)
-      }
+      const data = localStorage.getItem('todos')
+      if (!data) return
+
+      const todos = JSON.parse(data)
+      state.todos = todos
     },
     createTodo: (state, action: PayloadAction<TodoProps>) => {
       const newTodo = action.payload
       const requiredKeys = ['id', 'todo', 'status']
 
-      // validate payload
-      const hasRequiredKeys = Object.keys(newTodo).every((key) =>
-        requiredKeys.includes(key)
-      )
+      try {
+        const hasRequiredKeys = Object.keys(newTodo).every((key) =>
+          requiredKeys.includes(key)
+        )
 
-      if (hasRequiredKeys) {
+        if (!hasRequiredKeys)
+          throw Error(
+            'ERROR: Looks like the payload contains invalid keys. Contact a developer if you think this is a bug'
+          )
+
         localStorage.setItem('todos', JSON.stringify([...state.todos, newTodo]))
         state.todos = [...state.todos, newTodo]
-      } else {
-        console.error(
-          'ERROR: Looks like the payload contains invalid keys. Contact a developer if you think this is a bug'
-        )
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(error.message)
+        }
       }
     },
     toggleTodo: (
       state,
-      action: PayloadAction<{ id: string; status: TodoStatus }>
+      action: PayloadAction<Pick<TodoProps, 'id' | 'status'>>
     ) => {
       try {
         const toggledStatus: TodoStatus =

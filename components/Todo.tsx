@@ -58,6 +58,11 @@ export const Todo: React.FC<TodoProps> = ({ id, todo, status }) => {
     setChecked(!checked)
   }
 
+  const handleRemove = () => {
+    // dispatch update to todo item in state
+    // update in local storage
+  }
+
   return (
     <div css={TodoContainer(status)}>
       <input
@@ -71,7 +76,7 @@ export const Todo: React.FC<TodoProps> = ({ id, todo, status }) => {
         <div>{todo}</div>
         <div>{status}</div>
       </label>
-      <button css={DeleteTodo} type="button">
+      <button css={DeleteTodo} onClick={handleRemove} type="button">
         X
       </button>
     </div>
