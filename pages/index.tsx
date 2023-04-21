@@ -4,8 +4,8 @@ import { css } from '@emotion/react'
 
 import { Suspense } from 'react'
 
-import { Todos } from '../components/Todos'
 import { TodoField } from '../components/TodoField'
+import TodoList from '../components/TodoList'
 
 const pageContainer = css`
   background-color: hsl(200, 30%, 20%);
@@ -37,7 +37,7 @@ const Home: NextPage = () => {
 
         <div css={todosContainer}>
           <TodoField />
-          <Todos />
+          <TodoList />
           <div
             style={{
               width: 600,
@@ -48,17 +48,6 @@ const Home: NextPage = () => {
             }}
           >
             Extra Actions
-          </div>
-          <div
-            style={{
-              width: 600,
-              height: 30,
-              background: '#fff',
-              marginTop: 12,
-              color: '#000'
-            }}
-          >
-            Filters
           </div>
         </div>
       </main>

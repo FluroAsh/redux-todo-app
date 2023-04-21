@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import type { TodoProps, TodoStatus } from '../lib/types'
 import { AiOutlineClose } from 'react-icons/ai'
 import { deleteTodo, toggleTodo } from '../lib/slices/todoSlice'
-import { COMPLETED } from '../constants'
+import { COMPLETED, TBC } from '../constants'
 
 const TodoContainer = (status: TodoStatus) => css`
   color: black;
@@ -71,7 +71,7 @@ const TodoLabel = css`
 `
 
 export const Todo: React.FC<TodoProps> = ({ id, todo, status }) => {
-  const [checked, setChecked] = useState<boolean>(false)
+  const [checked, setChecked] = useState<boolean>(status === COMPLETED)
   const dispatch = useDispatch()
 
   const handleCheckboxChange = () => {

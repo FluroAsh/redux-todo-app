@@ -103,9 +103,6 @@ const todoSlice = createSlice({
           console.error(error.message)
         }
       }
-    },
-    filterTodos: (state, action) => {
-      // get todos by status (filter) -> todo.status === (status)
     }
   }
 })
@@ -115,7 +112,6 @@ export const {
   createTodo,
   toggleTodo,
   updateTodo,
-  deleteTodo,
-  filterTodos
+  deleteTodo
 } = todoSlice.actions
 export default todoSlice.reducer
