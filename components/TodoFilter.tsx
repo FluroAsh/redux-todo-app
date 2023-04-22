@@ -23,7 +23,7 @@ const TodoFilterContainer = css`
 const FilterButton = (active: boolean) => css`
   height: 30px;
   min-width: 100px;
-  font-weight: ${active ? 600 : 400};
+  font-weight: ${active && 600};
   font-size: 16px;
   color: ${active ? 'hsl(200, 80%, 60%)' : 'hsl(0, 0%, 50%)'};
   border: none;

@@ -12,7 +12,8 @@ const TodoForm = css`
 
   > input[type='text'] {
     flex: 1 1 auto;
-    height: 40px;
+    font-size: 16px;
+    height: 50px;
     margin-bottom: 12px;
     padding: 0 8px;
     border: none;
