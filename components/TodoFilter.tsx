@@ -1,4 +1,3 @@
-import React from 'react'
 import { css } from '@emotion/react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../lib/store'
@@ -24,8 +23,12 @@ const TodoFilterContainer = css`
 const FilterButton = (active: boolean) => css`
   height: 30px;
   min-width: 100px;
-  color: ${active && '#000'};
-  background-color: ${active && 'hsl(0, 0%, 80%)'};
+  font-weight: ${active ? 600 : 400};
+  font-size: 16px;
+  color: ${active ? 'hsl(200, 80%, 60%)' : 'hsl(0, 0%, 50%)'};
+  border: none;
+  background-color: transparent;
+  border-radius: 3px;
 `
 
 export const TodoFilter = ({

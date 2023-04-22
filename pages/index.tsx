@@ -45,7 +45,7 @@ const Home: NextPage = () => {
           <div
             style={{
               maxWidth: '100%',
-              padding: '10px',
+              padding: '10.5px',
               background: '#fff',
               marginTop: 12,
               color: '#000',

@@ -7,9 +7,10 @@ const CheckmarkStyles = (checked: boolean) => css`
   min-width: 20px;
   height: 20px;
   border-radius: 5px;
-  border: ${checked ? 'none' : '2px solid hsl(200, 60%, 60%)'};
+  border: ${checked ? 'none' : '1px solid hsl(200, 60%, 60%)'};
   margin-right: 10px;
-  background-color: ${checked ? 'hsl(200, 60%, 60%)' : 'transparent'};
+  background-color: ${checked ? 'hsl(200, 60%, 60%)' : '#fff'};
+  box-shadow: ${!checked && '1px 1px 3px hsla(0, 0%, 20%, 0.3)'};
 
   &:after {
     content: '';

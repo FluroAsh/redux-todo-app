@@ -65,10 +65,13 @@ const DeleteTodo = css`
 
 const TodoLabel = css`
   display: flex;
-  flex-grow: 1;
+  align-items: center;
+  flex: 1 1 auto;
 
   > div {
+    word-wrap: break-all;
     flex: 1 1 auto;
+    margin-right: 5px;
   }
 `
 
