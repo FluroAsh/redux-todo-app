@@ -9,7 +9,7 @@ const TodoFilterContainer = css`
   display: flex;
   justify-content: center;
   gap: 15px;
-  width: 600px;
+  max-width: 100%;
   padding: 5px;
   background: #fff;
   margin-top: 12px;
@@ -35,9 +35,11 @@ export const TodoFilter = ({
   filter: TodoStatus
   setFilter: (status: TodoStatus) => void
 }) => {
+  const statuses: TodoStatus[] = [ALL, COMPLETED, TBC]
+
   return (
     <div css={TodoFilterContainer}>
-      {[ALL, COMPLETED, TBC].map((status: any) => (
+      {statuses.map((status) => (
         <button
           key={status}
           onClick={() => setFilter(status)}

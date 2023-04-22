@@ -29,21 +29,19 @@ const TodosContainer = css`
 const NoTodosContainer = css`
   border-radius: 5px;
   background: hsl(0, 0%, 100%);
-  color: hsl(0, 0%, 10%);
+  color: hsl(0, 0%, 00%);
   padding: 18px 0;
   text-align: center;
 `
 
-const NoTodosMessage = ({ filter }: { filter: TodoStatus }) => {
-  if (filter === ALL) {
-    return <div css={NoTodosContainer}>Add some todos...</div>
-  } else {
-    return <div css={NoTodosContainer}>No todos found...</div>
-  }
-}
+const NoTodosMessage = ({ filter }: { filter: TodoStatus }) => (
+  <div css={NoTodosContainer}>
+    {filter === ALL ? 'Add some todos...' : 'No todos found...'}
+  </div>
+)
 
 export default function TodoList() {
-  const todos = useSelector((state: RootState) => state.todoSlice.todos)
+  const { todos } = useSelector((state: RootState) => state.todoSlice)
 
   const [filter, setFilter] = useState<TodoStatus>(ALL)
   const filteredTodos =

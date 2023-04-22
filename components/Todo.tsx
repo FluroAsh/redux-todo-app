@@ -7,13 +7,15 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { deleteTodo, toggleTodo } from '../lib/slices/todoSlice'
 import { COMPLETED, TBC } from '../constants'
 
+import Checkmark from './Checkmark'
+
 const TodoContainer = (status: TodoStatus) => css`
   color: black;
   display: flex;
+  max-width: 100%;
   // TODO: Add a stacked background-image ontop of this one...
   background: linear-gradient(45deg, hsl(0, 0%, 90%), hsl(0, 0%, 50%));
   opacity: ${status === COMPLETED ? 0.5 : 1};
-  width: 600px;
   padding-left: 12px;
   overflow-y: hidden;
 
@@ -23,8 +25,8 @@ const TodoContainer = (status: TodoStatus) => css`
     user-select: none;
   }
 
-  label > div {
-    flex: 1 1 100%;
+  input[type='checkbox'] {
+    display: none;
   }
 
   label:hover,
@@ -81,16 +83,17 @@ export const Todo: React.FC<TodoProps> = ({ id, todo, status }) => {
 
   return (
     <div css={TodoContainer(status)}>
-      <input
-        id={`${id}-todo`}
-        type="checkbox"
-        checked={checked}
-        onChange={handleCheckboxChange}
-      />
       <label css={TodoLabel} htmlFor={`${id}-todo`}>
+        <Checkmark checked={checked} />
+        <input
+          id={`${id}-todo`}
+          type="checkbox"
+          checked={checked}
+          onChange={handleCheckboxChange}
+        />
         {/* TODO: Text Area (edit)*/}
         <div>{todo}</div>
-        <div>{status}</div>
+        {/* <div>{status}</div> */}
       </label>
       <button
         css={DeleteTodo}

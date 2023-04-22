@@ -21,7 +21,10 @@ const mainContainer = css`
 `
 
 const todosContainer = css`
-  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  max-width: 100%;
 `
 
 const Home: NextPage = () => {
@@ -40,14 +43,15 @@ const Home: NextPage = () => {
           <TodoList />
           <div
             style={{
-              width: 600,
-              height: 30,
+              maxWidth: '100%',
+              padding: '10px',
               background: '#fff',
               marginTop: 12,
-              color: '#000'
+              color: '#000',
+              textAlign: 'center'
             }}
           >
-            Extra Actions
+            Todos Remaining | Clear Todos
           </div>
         </div>
       </main>
