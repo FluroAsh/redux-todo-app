@@ -12,7 +12,6 @@ import Checkmark from './Checkmark'
 const TodoContainer = (status: TodoStatus) => css`
   color: black;
   display: flex;
-  max-width: 100%;
   // TODO: Add a stacked background-image ontop of this one...
   background: linear-gradient(45deg, hsl(0, 0%, 90%), hsl(0, 0%, 50%));
   opacity: ${status === COMPLETED ? 0.5 : 1};
@@ -69,8 +68,7 @@ const TodoLabel = css`
   flex: 1 1 auto;
 
   > div {
-    word-wrap: break-all;
-    flex: 1 1 auto;
+    word-break: break-all;
     margin-right: 5px;
   }
 `

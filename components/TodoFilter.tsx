@@ -8,7 +8,6 @@ const TodoFilterContainer = css`
   display: flex;
   justify-content: center;
   gap: 15px;
-  max-width: 100%;
   padding: 5px;
   background: #fff;
   margin-top: 12px;
